@@ -1,0 +1,294 @@
+/* =====================================================================
+   Adaptive interface (research instrumentation for RQ2 / RQ3)
+   - consensus badge (minimal adaptation)
+   - confidence score + divided banner (full adaptation)
+   - layout reconfiguration via flex order on .council-message-flow
+   ===================================================================== */
+
+/* ---------- Message flow container (all conditions) ---------- */
+.council-message-flow {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ---------- Condition switcher ---------- */
+.ui-condition-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+}
+
+.ui-condition-caption {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 0 6px;
+}
+
+.ui-condition-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.ui-condition-btn:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ui-condition-btn.active {
+  background: var(--accent-primary-dim);
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.ui-condition-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ui-condition-icon {
+  font-size: 11px;
+}
+
+/* ---------- Consensus badge (minimal adaptation) ---------- */
+.consensus-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin: 14px 0 2px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid;
+  backdrop-filter: blur(8px);
+}
+
+.consensus-badge.consensus {
+  color: var(--consensus-color, #34d399);
+  border-color: rgba(52, 211, 153, 0.4);
+  background: rgba(52, 211, 153, 0.1);
+  box-shadow: 0 0 18px rgba(52, 211, 153, 0.12);
+}
+
+.consensus-badge.divided {
+  color: var(--divided-color, #fb7185);
+  border-color: rgba(251, 113, 133, 0.4);
+  background: rgba(251, 113, 133, 0.1);
+  box-shadow: 0 0 18px rgba(251, 113, 133, 0.12);
+}
+
+.consensus-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.consensus-badge-value {
+  font-family: var(--font-code);
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* ---------- Confidence score (full adaptation, consensus) ---------- */
+.confidence-score {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 14px 0 4px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border-left: 3px solid #34d399;
+}
+
+.confidence-score-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 110px;
+}
+
+.confidence-score-value {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  color: #34d399;
+  line-height: 1.1;
+  text-shadow: 0 0 24px rgba(52, 211, 153, 0.35);
+}
+
+.confidence-score-caption {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.confidence-score-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  flex: 1;
+}
+
+.confidence-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.confidence-detail-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+}
+
+.confidence-detail-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-code);
+}
+
+/* ---------- Divided banner (full adaptation, divided) ---------- */
+.divided-banner {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 14px 0 4px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(251, 113, 133, 0.08);
+  border: 1px solid rgba(251, 113, 133, 0.3);
+  border-left: 3px solid #fb7185;
+}
+
+.divided-banner-icon {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.divided-banner-title {
+  font-weight: 700;
+  font-size: 14.5px;
+  color: #fda4af;
+  margin-bottom: 4px;
+}
+
+.divided-banner-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* ---------- Full reconfiguration: consensus layout ---------- */
+/* Visual order: summary → final answer → deliberation toggle → (hidden
+   stages) → everything else. DOM order is untouched. */
+.layout-consensus > .round-navigator { order: -5; }
+.layout-consensus > .consensus-summary { order: -4; }
+.layout-consensus > .stage3-anchor { order: -3; }
+.layout-consensus > .deliberation-toggle-row { order: -2; }
+
+.consensus-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.deliberation-hidden {
+  display: none !important;
+}
+
+.deliberation-toggle-row {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 4px;
+}
+
+.deliberation-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border-glass);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.deliberation-toggle-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- Full reconfiguration: divided layout ---------- */
+.layout-divided > .round-navigator { order: -5; }
+.layout-divided > .divided-banner { order: -4; }
+
+.synthesis-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 -6px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---------- Stage 1 side-by-side comparison (divided layout) ---------- */
+.stage1-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.stage1-compare-card {
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.stage1-compare-card .model-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.stage1-compare-card .response-text {
+  padding: 14px 16px;
+  max-height: 420px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .stage1-compare-grid {
+    grid-template-columns: 1fr;
+  }
+}

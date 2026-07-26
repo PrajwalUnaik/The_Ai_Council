@@ -1,0 +1,222 @@
+:root {
+  /* --- Aurora Obsidian Theme ---
+     Deep violet-black glass with aurora accents. All component styling
+     keys off these tokens, so the theme is defined in one place. */
+
+  /* Backgrounds */
+  --bg-dark: #0c0a18;
+  --bg-darker: #07060e;
+  --bg-card: rgba(18, 15, 32, 0.72);
+  --bg-sidebar: rgba(10, 8, 19, 0.95);
+  --accent-advisor: #c084fc;
+
+  /* Text */
+  --text-primary: #f2f0fc;
+  --text-secondary: #a5a0c2;
+  --text-muted: #6b668a;
+
+  /* Accents */
+  --accent-primary: #8b7cf6;
+  --accent-primary-dim: rgba(139, 124, 246, 0.25);
+  --accent-stage1: #3ec6ff;
+  --accent-stage2: #f0b429;
+  --accent-stage3: #34d399;
+  --accent-chairman: #f6c453;
+  --accent-chairman-dim: rgba(246, 196, 83, 0.2);
+
+  /* Agreement communication (RQ2/RQ3) */
+  --consensus-color: #34d399;
+  --divided-color: #fb7185;
+
+  /* Borders */
+  --border-color: rgba(158, 151, 199, 0.09);
+  --border-glass: rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-ui: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-content: 'IBM Plex Sans', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+
+  /* Shadows & glow */
+  --shadow-glass: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --shadow-glow-blue: 0 0 24px rgba(139, 124, 246, 0.22), 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-darker);
+  background-image:
+    radial-gradient(ellipse 90% 70% at 12% 8%, rgba(139, 124, 246, 0.13) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 88% 88%, rgba(62, 198, 255, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 55% 45%, rgba(232, 121, 249, 0.045) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 35% at 30% 80%, rgba(52, 211, 153, 0.04) 0%, transparent 60%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Global Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(158, 151, 199, 0.22);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(158, 151, 199, 0.45);
+}
+
+/* --- Glassmorphism Utility Classes --- */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(12px)) {
+  .glass-panel {
+    background: rgba(19, 16, 34, 0.95);
+  }
+}
+
+/* Optional grain overlay for depth (subtle) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Markdown Content Styling */
+.markdown-content {
+  font-family: var(--font-content);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.68;
+  color: #ded9f0;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.markdown-content p {
+  margin-bottom: 1em;
+}
+
+.markdown-content strong {
+  font-weight: 600;
+  color: #f4f1fd;
+}
+
+.markdown-content code {
+  font-family: var(--font-code);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #e879f9; /* Fuchsia for inline code */
+}
+
+.markdown-content pre {
+  background: #060512; /* Almost black, violet undertone */
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.markdown-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 0.85em;
+}
+
+.markdown-content ul, .markdown-content ol {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid var(--accent-primary);
+  margin: 1em 0;
+  padding-left: 1em;
+  font-style: italic;
+  color: var(--text-secondary);
+  background: rgba(139, 124, 246, 0.06);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 13px;
+  font-family: var(--font-ui);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(158, 151, 199, 0.15);
+}
+
+.markdown-content thead {
+  background: rgba(139, 124, 246, 0.1);
+}
+
+.markdown-content th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(158, 151, 199, 0.2);
+  white-space: nowrap;
+}
+
+.markdown-content td {
+  padding: 9px 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(158, 151, 199, 0.08);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.markdown-content tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-content tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Global Button Reset */
+button {
+  font-family: var(--font-ui);
+}
